@@ -1,0 +1,419 @@
+/* § TOKENS */
+:root {
+    --pb: #111;          /* panel background   */
+    --ps: #191919;       /* panel surface      */
+    --p1: #242424;       /* panel border lo    */
+    --p2: #2e2e2e;       /* panel border mid   */
+    --pt: #e6e0d6;       /* panel text         */
+    --pm: #555;          /* panel muted        */
+    --au: #b8904a;       /* gold accent        */
+    --ah: #cca35a;       /* gold hover         */
+    --pa: #f9f7f3;       /* paper              */
+    --bg: #ddd8cf;       /* paper background   */
+    --k1: #111;          /* ink                */
+    --k2: #444;          /* ink muted          */
+    --k3: #888;          /* ink faint          */
+    --ru: .5px solid #beb6a4; /* paper rule    */
+    --ea: cubic-bezier(.4,0,.2,1);
+    --sf: 'EB Garamond',Georgia,serif;
+    --df: 'Cormorant Garamond',Georgia,serif;
+    --uf: 'Jost',system-ui,sans-serif;
+}
+
+/* § RESET — body is the flex shell (no extra wrapper div) */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; scrollbar-width:none; -ms-overflow-style:none }
+*::-webkit-scrollbar { display:none }
+
+body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--sf);
+    background: var(--pb);
+    color: var(--pt);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* § PANEL */
+aside {
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--pb);
+    border-right: 1px solid var(--p1);
+    overflow: hidden;
+}
+aside > header {
+    padding: 1.35rem 1.25rem .95rem;
+    border-bottom: 1px solid var(--p1);
+}
+aside > header p:first-child {
+    font-family: var(--df);
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--au);
+}
+aside > header p + p {
+    font-family: var(--uf);
+    font-size: 8.5px;
+    font-weight: 300;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--pm);
+    margin-top: .18rem;
+}
+aside > nav   { flex:1; overflow-y:auto; padding:.6rem 0 }
+aside > footer {
+    padding: .9rem 1.25rem 1.25rem;
+    border-top: 1px solid var(--p1);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+/* § ACCORDION — native <details>, zero JS */
+details { border-bottom: 1px solid var(--p1) }
+details > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem 1.25rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background .15s var(--ea);
+}
+details > summary::-webkit-details-marker { display:none }
+details > summary:hover { background: var(--ps) }
+details > summary > span {
+    font-family: var(--uf);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--au);
+}
+/* CSS-only chevron */
+details > summary::after {
+    content: '';
+    width: 5px; height: 5px;
+    border-right: 1px solid var(--pm);
+    border-bottom: 1px solid var(--pm);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform .22s var(--ea);
+    flex-shrink: 0;
+}
+details[open] > summary::after { transform: rotate(-135deg) translateY(-2px) }
+details > fieldset {
+    border: none;
+    padding: .2rem 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    animation: unfold .2s var(--ea) both;
+}
+@keyframes unfold {
+    from { opacity:0; transform:translateY(-5px) }
+    to   { opacity:1; transform:translateY(0) }
+}
+/* Visually hidden legend — still read by screen readers */
+details > fieldset > legend {
+    position:absolute; width:1px; height:1px;
+    overflow:hidden; clip:rect(0 0 0 0);
+}
+
+/* § FORM */
+label { display:flex; flex-direction:column; gap:.28rem }
+label > span {
+    font-family: var(--uf);
+    font-size: 8px;
+    font-weight: 400;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--pm);
+}
+input, textarea {
+    width: 100%;
+    background: var(--ps);
+    border: 1px solid var(--p2);
+    border-radius: 2px;
+    color: var(--pt);
+    font-family: var(--sf);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: .38rem .55rem;
+    outline: none;
+    transition: border-color .18s var(--ea);
+    resize: vertical;
+}
+input[type="date"] { color-scheme:dark }
+input:focus, textarea:focus { border-color: var(--au) }
+textarea { min-height:60px }
+/* Stat grid — only class strictly needed for layout variant */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:.45rem }
+
+/* § BUTTONS */
+button {
+    width: 100%;
+    border: none;
+    border-radius: 2px;
+    font-family: var(--uf);
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+button[data-role="primary"] {
+    background: var(--au);
+    color: #111;
+    font-size: 10.5px;
+    padding: .7rem 1rem;
+    transition: background .18s var(--ea);
+}
+button[data-role="primary"]:hover  { background: var(--ah) }
+button[data-role="primary"]:active { transform: scale(.98) }
+button[data-role="secondary"] {
+    background: transparent;
+    color: var(--pm);
+    border: 1px solid var(--p2);
+    font-size: 9px;
+    font-weight: 300;
+    padding: .52rem 1rem;
+    transition: color .18s var(--ea), border-color .18s var(--ea);
+}
+button[data-role="secondary"]:hover { color:var(--pt); border-color:var(--pm) }
+
+/* § PAPER */
+main {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2.5rem 2rem;
+}
+article {
+    background: var(--pa);
+    width: 100%;
+    max-width: 860px;
+    padding: 2.8rem 3.2rem 3.5rem;
+    color: var(--k1);
+    box-shadow: 0 16px 80px rgba(0,0,0,.24);
+    animation: rise .4s var(--ea) both;
+}
+@keyframes rise {
+    from { opacity:0; transform:translateY(10px) }
+    to   { opacity:1; transform:translateY(0) }
+}
+
+/* § NAMEPLATE */
+article > header { text-align:center; margin-bottom:1.1rem }
+article > header > p {            /* date · weather · editor row */
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--uf);
+    font-size: 8.5px;
+    font-weight: 300;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--k3);
+    margin-bottom: .75rem;
+}
+article > header > h1 {
+    font-family: var(--df);
+    font-size: 76px;
+    font-weight: 300;
+    letter-spacing: .02em;
+    line-height: 1;
+}
+article > header > div {          /* ornament: rule ◆ rule */
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin: .6rem 0;
+}
+article > header > div > hr { flex:1; border:none; border-top:var(--ru) }
+article > header > div > i  {    /* ◆ diamond, CSS only */
+    width:4px; height:4px;
+    background: var(--k1);
+    transform: rotate(45deg);
+    font-style: normal;
+    flex-shrink: 0;
+}
+article > header > blockquote {
+    font-family: var(--df);
+    font-style: italic;
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--k2);
+    letter-spacing: .02em;
+    border: none; padding: 0;
+}
+article > header > hr { border:none; border-top:2px solid var(--k1); margin-top:.9rem }
+
+/* § STORIES */
+/* Section label */
+article section > header {
+    font-family: var(--uf);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--k3);
+    border-top: var(--ru);
+    border-bottom: var(--ru);
+    padding: .32rem 0;
+    margin-bottom: .7rem;
+}
+article section {
+    padding: 1rem 0;
+    border-bottom: var(--ru);
+}
+article section:last-of-type { border-bottom:none }
+
+/* Headline sizes via data attribute — one rule, three values */
+article section > h2 {
+    font-family: var(--df);
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--k1);
+    margin-bottom: .35rem;
+}
+article section[data-size="xl"] > h2 { font-size:46px; line-height:1.06 }
+article section[data-size="lg"] > h2 { font-size:28px; line-height:1.12 }
+article section[data-size="md"] > h2 { font-size:21px; line-height:1.18 }
+
+article section > h3 {           /* deck */
+    font-family: var(--df);
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--k2);
+    line-height: 1.45;
+    margin-bottom: .45rem;
+}
+article section > address {      /* byline */
+    font-family: var(--uf);
+    font-size: 8px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--k3);
+    padding-bottom: .45rem;
+    border-bottom: var(--ru);
+    margin-bottom: .55rem;
+}
+article section > p {            /* body copy */
+    font-size: 15px;
+    line-height: 1.8;
+}
+article section[data-cols="2"] > p { column-count:2; column-gap:1.8rem; column-rule:var(--ru) }
+article section[data-cols="3"] > p { column-count:3; column-gap:1.5rem; column-rule:var(--ru) }
+
+article section > figure {       /* pull quote */
+    font-family: var(--df);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.42;
+    padding: 1rem 1.4rem;
+    margin: .9rem 0;
+    border-top: var(--ru);
+    border-bottom: var(--ru);
+    break-inside: avoid;
+}
+article section > figure::before { content:'\201C' }
+article section > figure::after  { content:'\201D' }
+article section[data-role="note"] > p { font-style:italic; color:var(--k2) }
+
+/* § GRIDS — two-up / three-up column layouts */
+.two-up, .three-up {
+    display: grid;
+    gap: 0;
+    border-top: var(--ru);
+    margin-top: .4rem;
+}
+.two-up   { grid-template-columns:1fr 1fr }
+.three-up { grid-template-columns:1fr 1fr 1fr }
+
+.two-up   > section,
+.three-up > section {
+    border-bottom: none;
+    padding: .9rem 1.5rem .9rem 0;
+    border-right: var(--ru);
+}
+.two-up   > section:last-child,
+.three-up > section:last-child {
+    border-right: none;
+    padding: .9rem 0 .9rem 1.5rem;
+}
+.three-up > section:not(:first-child):not(:last-child) { padding:.9rem 1.5rem }
+
+/* § STATS — <dl> with <dt> value / <dd> label pairs */
+article > dl {
+    display: flex;
+    border-top: 2px solid var(--k1);
+    border-bottom: 2px solid var(--k1);
+    margin: 1.1rem 0;
+}
+article > dl > div       { flex:1; text-align:center; padding:.8rem .5rem; border-right:var(--ru) }
+article > dl > div:last-child { border-right:none }
+article > dl dt {
+    font-family: var(--df);
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1;
+}
+article > dl dd {
+    font-family: var(--uf);
+    font-size: 7.5px;
+    font-weight: 400;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--k3);
+    margin-top: .22rem;
+}
+
+/* Article footer — colophon */
+article > footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: .55rem;
+    border-top: 2px solid var(--k1);
+}
+article > footer > span {
+    font-family: var(--uf);
+    font-size: 8px;
+    font-weight: 300;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--k3);
+}
+
+/* Empty state via CSS — no JS element needed */
+#np-body:empty::after {
+    content: 'Fill in the left panel and press Generate Edition';
+    display: block;
+    padding: 4rem 0;
+    text-align: center;
+    font-family: var(--df);
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 300;
+    color: #aaa;
+}
+
+/* § PRINT */
+@media print {
+    body   { height:auto; overflow:auto; display:block }
+    aside  { display:none }
+    main   { display:block; padding:0; background:#fff }
+    article { box-shadow:none; max-width:100%; padding:1.5cm; animation:none }
+}
