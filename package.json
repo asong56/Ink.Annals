@@ -2,6 +2,9 @@
     "name": "Ink.Annals: Helps you generate your personal distillation of time and ink.",
     "private": true,
     "version": "1.0.0",
+    "description": "A magazine style newspaper generator",
+    "author": "asong56 <238927804+asong56@users.noreply.github.com>",
+    "license": "MIT",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -11,6 +14,7 @@
     "devDependencies": {
         "vite": "^5.0.0",
         "vite-plugin-minify": "^1.5.0",
+        "vite-plugin-pwa": "^0.20.0",
         "vite-plugin-singlefile": "^2.0.0",
         "terser": "^5.0.0"
     }
