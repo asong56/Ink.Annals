@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>The Weekly Chronicle</title>
-    <!--
-      THE WEEKLY CHRONICLE — Personal Newspaper Generator
-      ────────────────────────────────────────────────────
-      Single-file, zero-dependency. Find sections by searching "§".
-      § TOKENS  § RESET  § SHELL  § PANEL  § ACCORDION
-      § FORM    § PAPER  § NAMEPLATE  § STORIES  § GRIDS
-      § STATS   § PRINT  § HTML  § JS
-    -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=EB+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap">
-    <link rel="stylesheet" href="./styles.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="theme-color" content="#f2f2f7">
+        
+        <title>The Weekly Chronicle</title>
+        
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+        <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+        <meta property="og:title" content="Ink.Annals: Help you generate your own weely newspaper.">
+        <meta property="og:description" content="Your own newspaper generator">
+        <meta property="og:image" content="/assets/og-card.png">
+        <meta name="twitter:card" content="summary_large_image">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=EB+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+        
+        <link rel="stylesheet" href="./src/styles.css">
+        <!--
+          THE WEEKLY CHRONICLE — Personal Newspaper Generator
+          ────────────────────────────────────────────────────
+          Single-file, zero-dependency. Find sections by searching "§".
+          § TOKENS  § RESET  § SHELL  § PANEL  § ACCORDION
+          § FORM    § PAPER  § NAMEPLATE  § STORIES  § GRIDS
+          § STATS   § PRINT  § HTML  § JS
+        -->
     </head>
     
     <!-- § HTML ──────────────────────────────────────────────────
@@ -165,6 +181,6 @@
             </article>
         </main>
         
-        <script type="module" src="./scripts.js"></script>
+        <script type="module" src="./src/main.js"></script>
     </body>
 </html>
